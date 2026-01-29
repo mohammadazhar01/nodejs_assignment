@@ -1,11 +1,22 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const db = require('./config/db')
+const categoryRouter = require('./routes/categoryRoute')
+const productRouter = require('./routes/productRoute')
 
 dotenv.config()
 
 const port = process.env.PORT || 4000
 const app = express()
+
+app.set('view engine', 'ejs')
+app.use(express.urlencoded({
+    extended: true
+}))
+
+app.use('/api/categories', categoryRouter)
+app.use('/api/products', productRouter)
+
 const startServer = async() => {
     try {
         await db.query("SELECT 1")
@@ -17,7 +28,6 @@ const startServer = async() => {
     } catch(error) {
         res.send("Database connection failed", error)
     }
-    
 }
 
 startServer()
