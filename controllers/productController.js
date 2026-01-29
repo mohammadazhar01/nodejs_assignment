@@ -79,7 +79,6 @@ exports.editProduct = async(req, res) => {
         res.send("Error updating product")
     }
     
-    
 }
 
 exports.removeProduct = async(req, res) => {
