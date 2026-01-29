@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Category Page</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin: 0;
+        }
+
+        .btn {
+            padding: 8px 14px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #f0f0f0;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+        }
+
+        .footerlink {
+            margin-top: 15px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="top">
+        <h2>Category Master</h2>
+        <a href="/api/categories/add" class="btn">Add Category</a>
+    </div>
+
+    <% if (categories.length === 0) { %>
+        <div class="empty">No categories found</div>
+    <% } else { %>
+        <table>
+            <tr>
+                <th>Category Id</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+
+            <% categories.forEach(category => { %>
+                <tr>
+                    <td><%= category.CategoryId %></td>
+                    <td><%= category.CategoryName %></td>
+                    <td>
+                        <a href="/api/categories/edit/<%= category.CategoryId %>" class="btn">Edit</a>
+                        <a href="/api/categories/delete/<%= category.CategoryId %>" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </table>
+    <% } %>
+
+    <a href="/api/products" class="footerlink">Go to Products </a>
+</div>
+
+</body>
+</html>

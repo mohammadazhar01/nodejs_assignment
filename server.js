@@ -10,23 +10,25 @@ const port = process.env.PORT || 4000
 const app = express()
 
 app.set('view engine', 'ejs')
-app.use(express.urlencoded({
-    extended: true
-}))
+app.use(express.urlencoded({ extended: true }))
+
+app.get('/', (req, res) => {
+    res.redirect('/api/categories')
+})
 
 app.use('/api/categories', categoryRouter)
 app.use('/api/products', productRouter)
 
-const startServer = async() => {
+const startServer = async () => {
     try {
         await db.query("SELECT 1")
         console.log("Database connected")
 
-        app.listen(port, ()=> {
-        console.log(`Sever is running on ${port} port`)
-    })
-    } catch(error) {
-        res.send("Database connection failed", error)
+        app.listen(port, () => {
+            console.log(`Server is running on port ${port}`)
+        })
+    } catch (error) {
+        console.error("Database connection failed:", error)
     }
 }
 

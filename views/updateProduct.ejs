@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Product</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745; 
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <% if (!product) { %>
+        <p class="error">Product not found</p>
+        <a href="/api/products" class="back-link">← Back to Products</a>
+    <% } else { %>
+
+        <h1>Edit Product</h1>
+
+        <form action="/api/products/update/<%= product.ProductId %>" method="POST">
+            <label>Product Name</label>
+            <input type="text" name="productname" value="<%= product.ProductName %>" required>
+
+            <label>Category</label>
+            <select name="categoryid" required>
+                <% categories.forEach(c => { %>
+                    <option value="<%= c.CategoryId %>" <%= c.CategoryId == product.CategoryId ? 'selected' : '' %>>
+                        <%= c.CategoryName %>
+                    </option>
+                <% }) %>
+            </select>
+
+            <button type="submit">Update Product</button>
+        </form>
+
+        <a href="/api/products" class="back-link"> Back to Products</a>
+
+    <% } %>
+
+</div>
+
+</body>
+</html>

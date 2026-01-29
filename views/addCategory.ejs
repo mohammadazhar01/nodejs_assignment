@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Category</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Add Category</h1>
+
+    <form action="/api/categories/add" method="POST">
+        <label>Category Name</label>
+        <input type="text" name="categoryname" placeholder="Category Name" required>
+
+        <button type="submit">Add Category</button>
+    </form>
+
+    <a href="/api/categories" class="back-link"> Back to Categories</a>
+</div>
+
+</body>
+</html>

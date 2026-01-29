@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .note {
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Add Product</h1>
+
+    <% if (categories.length === 0) { %>
+        <div class="note">No categories found. Please add a category first.</div>
+    <% } %>
+
+    <form action="/api/products/add" method="POST">
+        <label>Product Name</label>
+        <input type="text" name="productname" placeholder="Product Name" required>
+
+        <label>Category</label>
+        <select name="categoryid" required <%= categories.length === 0 ? 'disabled' : '' %>>
+            <option value="" disabled selected>
+                <%= categories.length === 0 ? "No category found" : "Select category" %>
+            </option>
+            <% categories.forEach(c => { %>
+                <option value="<%= c.CategoryId %>"><%= c.CategoryName %></option>
+            <% }) %>
+        </select>
+
+        <button type="submit" <%= categories.length === 0 ? 'disabled' : '' %>>Add Product</button>
+    </form>
+
+    <a href="/api/products" class="back-link"> Back to Products</a>
+</div>
+
+</body>
+</html>

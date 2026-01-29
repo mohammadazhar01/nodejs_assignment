@@ -3,7 +3,7 @@ const db = require('../config/db')
 
 exports.getAllProducts = async(limit, offset) => {
     const [rows] = await db.query(`SELECT p.ProductId, p.ProductName, c.CategoryName, c.CategoryId 
-        FROM products p JOIN categories c ON p.CategoryId = c.CategoryId`)
+        FROM products p JOIN categories c ON p.CategoryId = c.CategoryId LIMIT ? OFFSET ?`, [limit, offset])
     return rows
 }
 

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 85%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 8px 14px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #f0f0f0;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+        }
+
+        .pagination {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .pagination a {
+            margin: 0 5px;
+            padding: 6px 10px;
+            text-decoration: none;
+            background: #007bff;
+            color: white;
+            border-radius: 4px;
+        }
+
+        .footer-link {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="top">
+        <h2>Product Master</h2>
+        <a href="/api/products/add" class="btn">Add Product</a>
+    </div>
+
+    <% if (productMessage) { %>
+        <div class="empty"><%= productMessage %></div>
+    <% } else { %>
+        <table>
+            <tr>
+                <th>ProductId</th>
+                <th>ProductName</th>
+                <th>CategoryName</th>
+                <th>CategoryId</th>
+                <th>Action</th>
+            </tr>
+
+            <% products.forEach(p => { %>
+                <tr>
+                    <td><%= p.ProductId %></td>
+                    <td><%= p.ProductName %></td>
+                    <td><%= p.CategoryName %></td>
+                    <td><%= p.CategoryId %></td>
+                    <td>
+                        <a href="/api/products/edit/<%= p.ProductId %>" class="btn">Edit</a>
+                        <a href="/api/products/delete/<%= p.ProductId %>" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </table>
+
+        <div class="pagination">
+            <% for(let i = 1; i <= totalPages; i++) { %>
+                <a href="/api/products?page=<%= i %>"><%= i %></a>
+            <% } %>
+        </div>
+    <% } %>
+
+    <a href="/api/categories" class="footer-link">Go to Categories</a>
+
+</div>
+
+</body>
+</html>
